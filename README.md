@@ -20,3 +20,8 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 1. Clonez ce dépôt :
    ```bash
    git clone https://github.com/votre-utilisateur/maw3ide.git
+
+2. Installez les librairies
+   ```bash
+    pip install -r requirements.txt
+3.  
