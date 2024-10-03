@@ -1,0 +1,40 @@
+{% extends '../base.html' %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">Liste des Patients</h2>
+        <table class="min-w-full bg-white border">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b">Nom</th>
+                    <th class="py-2 px-4 border-b">Prénom</th>
+                    <th class="py-2 px-4 border-b">Email</th>
+                    <th class="py-2 px-4 border-b">Numéro de téléphone</th>
+                    <th class="py-2 px-4 border-b">Date de naissance</th>
+                    <th class="py-2 px-4 border-b">Genre</th>
+                    <th class="py-2 px-4 border-b">Rendez-vous lancés</th> <!-- Nouvelle colonne -->
+                    <!-- Ajoutez d'autres en-têtes si nécessaire -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td class="py-2 px-4 border-b">{{ patient.nom }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.prenom }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.email }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.numero_telephone }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.date_naissance }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.genre }}</td>
+                    <td class="py-2 px-4 border-b">{{ patient.rendez_vous.count }}</td> <!-- Utilisez rendez_vous au lieu de rendezvous -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
+
+
+{% endblock %}

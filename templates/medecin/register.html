@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load static tailwind_tags %}
+    {% load tailwind_filters %}
+    <meta charset="UTF-8">
+    {% tailwind_css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <title>Maw3ide</title>
+</head>
+<body>
+
+<div class="flex shadow-md justify-center items-center min-h-screen bg-gray-100">
+    <div class="max-w-lg w-full bg-white rounded-lg shadow-md p-6">
+        {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50" role="alert">
+        {% elif message.tags == 'warning' %}
+            <div class="alert flex items-center p-4 mb-4 text-yellow-800 border-t-4 border-yellow-300 bg-yellow-50" role="alert">
+        {% elif message.tags == 'success' %}
+            <div class="alert flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50" role="alert">
+        {% else %}
+            <div class="alert flex items-center p-4 mb-4 text-gray-800 border-t-4 border-gray-300 bg-gray-50" role="alert">
+        {% endif %}
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <div class="ms-3 text-sm font-medium">
+                {{ message }}
+            </div>
+            <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-transparent text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8" onclick="this.parentElement.style.display='none';" aria-label="Close">
+                <span class="sr-only">Dismiss</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-8">Inscription Medecin</h2>
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-4">
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.prenom|as_crispy_field}}
+                    {{form.nom|as_crispy_field}}
+                </div>
+                {{form.email|as_crispy_field}}
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.profil|as_crispy_field}}
+                    {{form.genre|as_crispy_field}}
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.specialite|as_crispy_field}}
+                {{form.informations_contact|as_crispy_field}}
+                </div>
+                <hr class="my-4">
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.password|as_crispy_field}}
+                    {{form.confirm_password|as_crispy_field}}
+                </div>
+            </div>
+            <div class="flex justify-center mt-4">
+                <button type="submit" class="text-white bg-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

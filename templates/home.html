@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% block content %}
+
+<!-- Présentation -->
+{% if user.is_authenticated %}
+{% if user.is_medecin %}
+<h1 class="text-2xl font-bold text-center my-8">Tableau de Bord des Rendez-vous</h1>
+
+<div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card bg-blue-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+            <div class="flex items-center justify-between">
+                <h5 class="text-xl font-medium text-gray-900">Total Rendez-vous</h5>
+                <i class="fas fa-calendar-alt text-2xl text-gray-600"></i>
+            </div>
+            <p class="text-2xl font-bold text-center mt-4">{{ total_rendezvous }}</p>
+        </div>
+        <div class="card bg-green-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+            <div class="flex items-center justify-between">
+                <h5 class="text-xl font-medium text-gray-900">Rendez-vous Confirmés</h5>
+                <i class="fas fa-check-circle text-2xl text-green-600"></i>
+            </div>
+            <p class="text-2xl font-bold text-center mt-4">{{ total_confirmed_rendezvous }}</p>
+        </div>
+        <div class="card bg-red-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+            <div class="flex items-center justify-between">
+                <h5 class="text-xl font-medium text-gray-900">Rendez-vous Annulés</h5>
+                <i class="fas fa-times-circle text-2xl text-red-600"></i>
+            </div>
+            <p class="text-2xl font-bold text-center mt-4">{{ total_cancelled_rendezvous }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% else %}<section class="bg-white py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Bienvenue sur Maw3ide</h2>
+        <p class="text-center text-gray-700 mb-8">Votre application de gestion de rendez-vous médicaux. Simplifiez vos prises de rendez-vous et gardez une trace de tous vos consultations.</p>
+       
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-center">
+                <a href="#" id="register-link" class="inline-block px-8 py-3 bg-green-600 text-white rounded hover:bg-green-700">
+                    <i class="fa-solid fa-user-plus"></i> Inscrivez-vous maintenant
+                </a>
+            </div>
+            <div class="text-center">
+                <a href="{% url 'logine' %}" class="inline-block px-8 py-3 bg-green-600 text-white rounded hover:bg-green-700">
+                    <i class="fa-solid fa-right-to-bracket"></i> Connecter
+                </a>
+            </div>
+        </div>
+        
+        {% endif %}
+    </div>
+</section>
+
+<!-- Fonctionnalités -->
+<section class="bg-slate-100 py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Nos Fonctionnalités</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <img src="{% static 'img/doctor.png' %}" alt="Prise de Rendez-vous en Ligne" class="mb-4 w-full h-32 object-cover rounded">
+                <h3 class="text-xl font-bold mb-4">Prise de Rendez-vous en Ligne</h3>
+                <p class="text-gray-700">Réservez vos consultations médicales en quelques clics.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <img src="{% static 'img/medical.png' %}" alt="Gestion des Rendez-vous" class="mb-4 w-full h-32 object-cover rounded">
+                <h3 class="text-xl font-bold mb-4">Gestion des Rendez-vous</h3>
+                <p class="text-gray-700">Suivez et gérez facilement tous vos rendez-vous.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <img src="{% static 'img/rdv.png' %}" alt="Notifications et Rappels" class="mb-4 w-full h-32 object-cover rounded">
+                <h3 class="text-xl font-bold mb-4">Notifications et Rappels</h3>
+                <p class="text-gray-700">Recevez des rappels pour ne jamais manquer un rendez-vous.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <img src="{% static 'img/rdv2.png' %}" alt="Autre Fonctionnalité" class="mb-4 w-full h-32 object-cover rounded">
+                <h3 class="text-xl font-bold mb-4">Autre Fonctionnalité</h3>
+                <p class="text-gray-700">Description de l'autre fonctionnalité.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="register-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div id="modal-content" class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Inscription en tant que :</h3>
+        <div class="flex justify-around">
+            <button id="doctor-btn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Médecin</button>
+            <button id="patient-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Patient</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('register-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.getElementById('register-modal').classList.remove('hidden');
+    });
+
+    document.getElementById('doctor-btn').addEventListener('click', function () {
+        window.location.href = "{% url 'register' %}";
+    });
+
+    document.getElementById('patient-btn').addEventListener('click', function () {
+        window.location.href = "{% url 'signUp' %}";
+    });
+
+    document.getElementById('register-modal').addEventListener('click', function (event) {
+        if (!document.getElementById('modal-content').contains(event.target)) {
+            window.location.href = "{% url 'home' %}";
+        }
+    });
+</script>
+
+{% endblock %}

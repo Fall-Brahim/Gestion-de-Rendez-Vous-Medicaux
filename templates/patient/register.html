@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load static tailwind_tags %}
+    {% load tailwind_filters %}
+    <meta charset="UTF-8">
+    {% tailwind_css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <title>Maw3ide</title>
+</head>
+<body>
+
+<div class="flex shadow-md justify-center items-center min-h-screen bg-gray-100">
+    <div class="max-w-lg w-full bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-8">Inscription Patient</h2>
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-4">
+                <div class="grid grid-cols-3 gap-4">
+                    {{form.prenom|as_crispy_field}}
+                    {{form.nom|as_crispy_field}}
+                    {{form.numero_telephone|as_crispy_field}}
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.adresse|as_crispy_field}}
+                    {{form.email|as_crispy_field}}
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.profil|as_crispy_field}}
+                    {{form.genre|as_crispy_field}}
+                </div>
+                <div class="grid grid-cols- gap-4">
+                </div>
+                <hr class="my-4">
+                <div class="grid grid-cols-2 gap-4">
+                    {{form.password|as_crispy_field}}
+                    {{form.confirm_password|as_crispy_field}}
+                </div>
+            </div>
+            <div class="flex justify-center mt-4">
+                <button type="submit" class="text-white bg-green-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

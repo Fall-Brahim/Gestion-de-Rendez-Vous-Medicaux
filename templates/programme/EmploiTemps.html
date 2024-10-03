@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-2xl font-bold text-center my-8">Emploi du Temps</h1>
+
+<div class="container mx-auto p-4">
+    {% if emploi %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for programme in emploi %}
+        <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300">
+            <h2 class="text-xl font-medium text-gray-900 mb-4">{{ programme.date }}</h2>
+            <ul>
+                <li class="text-sm text-gray-500"><strong>Heure de début :</strong> {{ programme.heure_debut }}</li>
+                <li class="text-sm text-gray-500"><strong>Heure de fin :</strong> {{ programme.heure_fin }}</li>
+                <li class="text-sm text-gray-500"><strong>Description :</strong> {{ programme.description }}</li>
+                <li class="text-sm text-gray-500"><strong>Lieu :</strong> {{ programme.lieu }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-600 text-center">Aucun programme trouvé.</p>
+    {% endif %}
+</div>
+{% endblock %}

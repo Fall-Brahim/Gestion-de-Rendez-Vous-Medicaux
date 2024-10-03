@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+{% block content %}  
+<h1 class="text-xl font-bold text-center">Nouvelle Notifications</h1>
+<div class="container  mx-auto p-6">
+    <div class="border shadow-md p-4 bg-gray-100">
+        <h1 class="text-xl font-bold">{{notification.user.patient}}</h1>
+        <p class="text-gray-600">{{ notification.message }}</p><br>
+        <small>{{ notification.date_created }}</small>
+    </div>
+</div>
+{% endblock %}

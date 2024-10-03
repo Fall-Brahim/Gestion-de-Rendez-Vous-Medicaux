@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static tailwind_tags %}
+    <meta charset="UTF-8">
+    {% tailwind_css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maw3ide </title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex justify-between items-center min-h-screen px-60">
+        <!-- Section de présentation -->
+        <div class="max-w-lg mr-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Bienvenue sur <span class="text-green-600">Maw3ide</span></h1>
+            <p class="text-gray-700 mb-6">Maw3ide est votre application de gestion de rendez-vous médicaux. Gagnez du temps et facilitez vos consultations en planifiant vos rendez-vous en ligne. Rejoignez-nous dès aujourd'hui et découvrez la simplicité de la gestion de vos consultations médicales.</p>
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <div class="max-w-lg w-full bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+            <!-- Alerte -->
+            <!-- Affichage des messages -->
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50" role="alert">
+        {% elif message.tags == 'warning' %}
+            <div class="alert flex items-center p-4 mb-4 text-yellow-800 border-t-4 border-yellow-300 bg-yellow-50" role="alert">
+        {% elif message.tags == 'success' %}
+            <div class="alert flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50" role="alert">
+        {% else %}
+            <div class="alert flex items-center p-4 mb-4 text-gray-800 border-t-4 border-gray-300 bg-gray-50" role="alert">
+        {% endif %}
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <div class="ms-3 text-sm font-medium">
+                {{ message }}
+            </div>
+            <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-transparent text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8" onclick="this.parentElement.style.display='none';" aria-label="Close">
+                <span class="sr-only">Dismiss</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">Connexion</h2>
+            <form method="POST" action="{% url 'logine' %}" autocomplete="off">
+                {% csrf_token %}
+                <div class="mb-5">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
+                    <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Votre adresse E-mail" required />
+                </div>
+                <div class="mb-5">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Mot de passe</label>
+                    <input type="password" placeholder="mot de passe..." id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" required />
+                </div>
+                <div class="flex items-start mb-5">
+                    j'ai pas un compte <a href="#" class="text-green-700 hover:underline ml-1" id="register-link">Créer un compte</a>
+                </div>
+                <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="register-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Inscription en tant que :</h3>
+            <div class="flex justify-around">
+                <button id="doctor-btn" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Médecin</button>
+                <button id="patient-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Patient</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- pour la fermeture des messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButtons = document.querySelectorAll('.alert button');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    this.parentElement.style.display = 'none';
+                });
+            });
+        });
+    </script>
+    
+
+    <script>
+        document.getElementById('register-link').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.getElementById('register-modal').classList.remove('hidden');
+        });
+
+        document.getElementById('doctor-btn').addEventListener('click', function () {
+            window.location.href = "{% url 'register' %}";
+        });
+
+        document.getElementById('patient-btn').addEventListener('click', function () {
+            window.location.href = "{% url 'signUp' %}";
+        });
+    </script>
+</body>
+</html>

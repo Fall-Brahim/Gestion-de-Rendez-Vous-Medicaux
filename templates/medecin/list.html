@@ -1,0 +1,32 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load static %}
+<div class="container mx-auto p-4">
+    
+    <div class="flex flex-wrap justify-center gap-4">
+        {% for doctor in doctors %}
+        <div class="card w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-200 dark:border-gray-300">
+            <div class="flex justify-end px-4 pt-4">
+                <!-- Content if needed -->
+            </div>
+
+            <div class="flex flex-col items-center pb-10">
+                {% if doctor.profil %}
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{ doctor.profil.url }}" alt="Photo de {{ doctor.prenom }} {{ doctor.nom }}"/>
+                {% else %}
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{% static 'portrait.jpg' %}" alt="Photo de {{ doctor.prenom }} {{ doctor.nom }}"/>
+                {% endif %}
+                <h5 class="mb-1 text-xl font-medium text-gray-900">{{ doctor.prenom }} {{ doctor.nom }}</h5>
+                <span class="text-sm text-gray-500">{{ doctor.specialite }}</span>
+                <div class="flex mt-4 md:mt-6">
+                    <a href="{% url 'doctor_detail' doctor.id %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-500 rounded-lg hover:bg-green-600 focus:ring-4 focus:outline-none">
+                        Voir plus
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

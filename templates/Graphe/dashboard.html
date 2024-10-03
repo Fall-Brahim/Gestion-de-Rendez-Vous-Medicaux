@@ -1,0 +1,220 @@
+{% extends '../base.html' %}
+
+<style>
+    .hover:scale-105 {
+        transition: transform 0.2s;
+    }
+    .chart-container {
+        width: 100%;
+        height: 400px;
+    }
+    .card {
+        width: 100%;
+        max-width: 320px; /* Adjust this value as needed */
+    }
+</style>
+
+{% block content %}  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<h1 class="text-2xl font-bold text-center my-8">Tableau de Bord</h1>
+
+<div class="container mx-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="{% url 'all_users' %}">
+            <div class="card bg-blue-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-xl font-medium text-gray-900">Total Medecin</h5>
+                    <i class="fa-solid fa-user-md text-2xl text-blue-600"></i>
+                </div>
+                <p class="text-2xl font-bold text-center mt-4">{{total_medecin}}</p>
+            </div>
+        </a>
+       
+        <a href="{% url 'liste_patients' %}">
+            <div class="card bg-green-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-xl font-medium text-gray-900">Patients</h5>
+                    <i class="fa-solid fa-user text-2xl text-green-600"></i>
+                </div>
+                <p class="text-2xl font-bold text-center mt-4">{{total_patient}}</p>
+            </div>
+        </a>
+        
+        <a href="#">
+            <div class="card bg-red-300 border border-gray-200 rounded-lg shadow-lg p-6 dark:bg-gray-200 dark:border-gray-300 transform transition-transform duration-300 hover:scale-105">
+                <div class="flex items-center justify-between">
+                    <h5 class="text-xl font-medium text-gray-900">Rendez-vous</h5>
+                    <i class="fas fa-calendar-alt text-2xl text-red-600"></i>
+                </div>
+                <p class="text-2xl font-bold text-center mt-4">{{total_rendezvous}}</p>
+            </div>
+        </a>
+        
+    </div>
+    <div class="card border-gray-200"></div>
+</div>
+
+
+<div class="container mx-auto p-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       
+        <div class="card bg-white p-4 shadow-md rounded-lg transform hover:scale-105 w-full md:w-80 h-auto">
+            <h2 class="text-xl font-semibold mb-4 text-center">Statut des Rendez-vous</h2>
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <div class="card bg-white p-4 shadow-md rounded-lg transform hover:scale-105 w-full md:w-80 h-auto">
+            <h2 class="text-xl font-semibold mb-4 text-center">Rendez-vous par Mois</h2>
+            <div class="chart-container">
+                <canvas id="appointmentChart"></canvas>
+            </div>
+        </div>
+        <div class="card bg-white p-4 shadow-md rounded-lg w-full h-auto">
+            <h2 class="text-xl font-semibold mb-4 text-center">Répartition des Patients par Genre</h2>
+            <div class="chart-container">
+                <canvas id="genrePieChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const monthCtx = document.getElementById('appointmentChart').getContext('2d');
+    const monthChart = new Chart(monthCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre', 'Janvier', 'Février', 'Mars', 'Avril'],
+            datasets: [{
+                axis: 'y',
+                label: 'Nombre de rendez-vous',
+                data: [{% for count in data %}{{ count }},{% endfor %}],
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)',
+                    'rgba(40, 167, 69, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                    'rgb(40, 167, 69)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    precision: 0,
+                    title: {
+                        display: true,
+                        text: 'Nombre de rendez-vous par mois'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Mois'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+<script>
+  const cty = document.getElementById('myChart');
+   
+   new Chart(cty, {
+     type: 'doughnut',
+     data: {
+       labels: ['Total', 'Annuler', 'confirme', 'En attente'],
+       datasets: [{
+         label: '',
+         data: [{% for bar in bar %} {{bar}}, {% endfor %}],
+         backgroundColor: [
+           'rgba(79, 70, 229, 0.3)', // Total (Bleu)
+           'rgba(239, 68, 68, 0.3)', // Annuler (Rouge)
+           'rgba(52, 211, 153, 0.3)', // Confirme (Vert)
+           'rgba(251, 191, 36, 0.3)', // En attente (Jaune)
+         ],
+         borderWidth: 1
+       }]
+     },
+     options: {
+       scales: {
+         y: {
+           beginAtZero: true
+         }
+       }
+     }
+   });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var ctz = document.getElementById('genrePieChart').getContext('2d');
+      var genreCounts = {{ genre_counts|safe }};
+      var labels = genreCounts.map(function(item) { return item.genre; });
+      var data = genreCounts.map(function(item) { return item.total; });
+
+      var chart = new Chart(ctz, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Nombre de Patients',
+            data: data,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+    });
+</script>
+{% endblock %}

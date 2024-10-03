@@ -1,0 +1,20 @@
+{% extends '../base.html' %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10">
+  <div class="bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-semibold text-center text-gray-900 mb-6">Créer un emploi du temps</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.jour|as_crispy_field }}
+      {{ form.mois|as_crispy_field }}
+      {{ form.date|as_crispy_field }}
+      {{ form.debut_heure|as_crispy_field }}
+      {{ form.fin_heure|as_crispy_field }}
+      <button type="submit" class="block w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Enregistrer</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
