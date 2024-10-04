@@ -60,3 +60,4 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 
 
 
+Les contributions sont les bienvenues ! Si vous avez des suggestions, n'hésitez pas à ouvrir une issue ou à soumettre une pull request.
