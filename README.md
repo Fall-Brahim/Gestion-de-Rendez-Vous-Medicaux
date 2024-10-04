@@ -19,9 +19,11 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 
 1. Clonez ce dépôt :
    ```bash
-   git clone https://github.com/votre-utilisateur/maw3ide.git
+     git clone git@github.com:Fall-Brahim/Gestion-de-Rendez-Vous-Medicaux.git
 
-2. Installez les librairies
+2. Acceder au repertoire du projet
+   ```bash
+      cd Gestion-de-Rendez-Vous-Medicaux
+4.  Installez les librairies
    ```bash
     pip install -r requirements.txt
-3.  
