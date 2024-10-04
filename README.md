@@ -15,6 +15,10 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 - **Frontend** : Tailwind CSS
 - **Base de données** : SQLite3
 
+##Captures d'ecran 
+###Page d'acceuil
+![Page d'accueil](./acceuil.png)
+
 
 
 1. Clonez ce dépôt :
@@ -22,9 +26,8 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
    ```bash
     Via SSH
     git clone git@github.com:Fall-Brahim/Gestion-de-Rendez-Vous-Medicaux.git
-    si non 
-    ```bash
-        git clone [https://github.com/Fall-BR](https://github.com/Fall-Brahim/Gestion-de-Rendez-Vous-Medicaux.git
+   si non 
+     git clone [https://github.com/Fall-BR](https://github.com/Fall-Brahim/Gestion-de-Rendez-Vous-Medicaux.git
 
 3. Acceder au repertoire du projet
    ```bash
@@ -32,7 +35,7 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 4.  Installez les librairies
     ```bash
        pip install -r requirements.txt
-5.  Appliquer les miagrations
+5.  Appliquer les migrations
     ```bash
        python manage.py migrate
 6.  Lancer le Serveur
