@@ -56,7 +56,7 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 6.  Lancer le Serveur
     ```bash
        python manage.py runserver
-  
+7.  Acceder a l'application a l'adresse `127.0.0.1:8000/Users/`
 
 
 
