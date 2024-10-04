@@ -17,9 +17,13 @@ Maw3ide est une application Web conçue pour simplifier la gestion des rendez-vo
 
 ##Captures d'ecran 
 ###Page d'acceuil
-![Page d'accueil](./acceuil.png)
-
-
+![Page d'accueil](./media/acceuil.png)
+###Page de Connexion
+![Page de connexion](./media/Connexion.png)
+###Interface Medecin
+![Page Interface Medecin](./media/InfoMedecin.png)
+###Adminstrateur du systeme
+![Dashboard](./media/TableaudeBord.png)
 
 1. Clonez ce dépôt :
   
