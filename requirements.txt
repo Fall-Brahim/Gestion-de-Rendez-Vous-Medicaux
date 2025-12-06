@@ -1,31 +1,58 @@
-arrow==1.3.0
-asgiref==3.8.1
-binaryornot==0.4.4
-certifi==2024.2.2
-channels==4.1.0
-chardet==5.2.0
-charset-normalizer==3.3.2
-click==8.1.7
-cookiecutter==2.6.0
-crispy-tailwind==1.0.3
-Django==5.0.6
-django-browser-reload==1.12.1
+# Core Django
+Django==4.2.17
+asgiref==3.7.2
+
+# Channels pour WebSockets (si vous utilisez du temps réel)
+channels==4.0.0
+
+# Forms et UI
 django-crispy-forms==2.1
+crispy-tailwind==1.0.3
 django-tailwind==3.8.0
-idna==3.7
-Jinja2==3.1.4
-markdown-it-py==3.0.0
-MarkupSafe==2.1.5
-mdurl==0.1.2
+django-browser-reload==1.12.1
+
+# Images
 pillow==10.3.0
-Pygments==2.18.0
+
+# Templates et configuration
+cookiecutter==2.6.0
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+PyYAML==6.0.1
+
+# Utilitaires
+arrow==1.3.0
 python-dateutil==2.9.0.post0
 python-slugify==8.0.4
-PyYAML==6.0.1
-requests==2.31.0
-rich==13.7.1
+text-unidecode==1.3
 six==1.16.0
 sqlparse==0.5.0
-text-unidecode==1.3
-types-python-dateutil==2.9.0.20240316
+
+# HTTP et encodage
+requests==2.31.0
 urllib3==2.2.1
+certifi==2024.2.2
+charset-normalizer==3.3.2
+chardet==5.2.0
+idna==3.7
+
+# Détection de fichiers
+binaryornot==0.4.4
+
+# CLI et affichage
+click==8.1.7
+rich==13.7.1
+Pygments==2.18.0
+markdown-it-py==3.0.0
+mdurl==0.1.2
+
+# Types (pour le développement)
+types-python-dateutil==2.9.0.20240316
+
+# Production - À ajouter pour le déploiement
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
+python-decouple==3.8
+whitenoise==6.6.0
+dj-database-url==2.1.0
+django-cors-headers==4.3.1
